@@ -1,34 +1,70 @@
 from flask import Flask, render_template, request
-import joblib
 import numpy as np
+import joblib
 
 app = Flask(__name__)
 
-model = joblib.load("models/petal_length_model.pkl")
-scaler = joblib.load("models/petal_length_scaler.pkl")
+petal_model = joblib.load("models/petal_length_model.pkl")
+petal_scaler = joblib.load("models/petal_length_scaler.pkl")
+
+species_model = joblib.load("models/species_model.pkl")
+species_scaler = joblib.load("models/species_scaler.pkl")
+label_encoder = joblib.load("models/le_species.pkl")
 
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("home.html")
 
 
-@app.route("/predict", methods=["POST"])
-def predict():
+@app.route("/petal")
+def petal():
+    return render_template("petal.html")
 
-    sepal_length = float(request.form["sepal_length"])
-    sepal_width = float(request.form["sepal_width"])
-    petal_width = float(request.form["petal_width"])
 
-    features = np.array([[sepal_length, sepal_width, petal_width]])
+@app.route("/species")
+def species():
+    return render_template("species.html")
 
-    scaled = scaler.transform(features)
 
-    prediction = model.predict(scaled)
+@app.route("/predict_petal", methods=["POST"])
+def predict_petal():
+
+    sl = float(request.form["sepal_length"])
+    sw = float(request.form["sepal_width"])
+    pw = float(request.form["petal_width"])
+
+    data = np.array([[sl, sw, pw]])
+
+    scaled = petal_scaler.transform(data)
+
+    prediction = petal_model.predict(scaled)[0]
 
     return render_template(
-        "index.html",
-        prediction_text=f"Predicted Petal Length: {prediction[0]:.2f}"
+        "petal.html",
+        prediction_text=f"Predicted Petal Length: {prediction:.2f}"
+    )
+
+
+@app.route("/predict_species", methods=["POST"])
+def predict_species():
+
+    sl = float(request.form["sepal_length"])
+    sw = float(request.form["sepal_width"])
+    pl = float(request.form["petal_length"])
+    pw = float(request.form["petal_width"])
+
+    data = np.array([[sl, sw, pl, pw]])
+
+    scaled = species_scaler.transform(data)
+
+    pred = species_model.predict(scaled)
+
+    flower = label_encoder.inverse_transform(pred)[0]
+
+    return render_template(
+        "species.html",
+        prediction_text=f"Predicted Species: {flower}"
     )
 
 
