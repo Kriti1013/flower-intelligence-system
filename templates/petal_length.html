@@ -1,179 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petal Length Predictor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petal Length Predictor</title>
 
-    <style>
+<style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:'Segoe UI',sans-serif;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
-        body{
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background:linear-gradient(135deg,#667eea,#764ba2);
-        }
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#0f172a,#1e293b,#7c3aed,#2563eb);
+    background-size:400% 400%;
+    animation:gradient 12s ease infinite;
+}
 
-        .container{
-            background:white;
-            width:420px;
-            padding:35px;
-            border-radius:20px;
-            box-shadow:0 10px 30px rgba(0,0,0,0.2);
-            text-align:center;
-            animation:fadeIn 0.8s ease;
-        }
+@keyframes gradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
-        @keyframes fadeIn{
-            from{
-                opacity:0;
-                transform:translateY(20px);
-            }
-            to{
-                opacity:1;
-                transform:translateY(0);
-            }
-        }
+.container{
+    width:500px;
+    padding:35px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.2);
+    color:white;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
 
-        h1{
-            color:#333;
-            margin-bottom:10px;
-        }
+.icon{
+    font-size:70px;
+    margin-bottom:10px;
+}
 
-        .subtitle{
-            color:#777;
-            margin-bottom:25px;
-        }
+h1{
+    margin-bottom:10px;
+}
 
-        input{
-            width:100%;
-            padding:14px;
-            margin:10px 0;
-            border:2px solid #ddd;
-            border-radius:10px;
-            font-size:16px;
-            transition:0.3s;
-        }
+.subtitle{
+    color:#dbeafe;
+    margin-bottom:25px;
+}
 
-        input:focus{
-            border-color:#667eea;
-            outline:none;
-        }
+input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,0.15);
+    color:white;
+    font-size:16px;
+}
 
-        .predict-btn{
-            width:100%;
-            padding:14px;
-            border:none;
-            border-radius:10px;
-            background:#667eea;
-            color:white;
-            font-size:17px;
-            font-weight:bold;
-            cursor:pointer;
-            transition:0.3s;
-            margin-top:10px;
-        }
+input::placeholder{
+    color:#ddd;
+}
 
-        .predict-btn:hover{
-            transform:translateY(-2px);
-            background:#5563d6;
-        }
+input:focus{
+    outline:none;
+    background:rgba(255,255,255,0.25);
+}
 
-        .home-btn{
-            width:100%;
-            padding:12px;
-            border:none;
-            border-radius:10px;
-            background:#2ecc71;
-            color:white;
-            font-size:16px;
-            cursor:pointer;
-            margin-top:12px;
-        }
+.predict-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#22c55e;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
 
-        .home-btn:hover{
-            background:#27ae60;
-        }
+.predict-btn:hover{
+    background:#16a34a;
+}
 
-        .result{
-            margin-top:25px;
-            padding:15px;
-            border-radius:12px;
-            background:#f8f9ff;
-            border-left:5px solid #667eea;
-            font-size:22px;
-            font-weight:bold;
-            color:#333;
-        }
+.home-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:10px;
+}
 
-        .flower{
-            font-size:55px;
-            margin-bottom:10px;
-        }
+.home-btn:hover{
+    background:#1d4ed8;
+}
 
-    </style>
+.result{
+    margin-top:20px;
+    padding:15px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.15);
+    font-size:22px;
+    font-weight:bold;
+}
+
+footer{
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,0.2);
+}
+
+.footer-title{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.footer-tech{
+    color:#dbeafe;
+    margin-bottom:5px;
+}
+
+.footer-author{
+    color:#cbd5e1;
+    margin-bottom:5px;
+}
+
+.footer-copy{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <div class="flower">🌸</div>
+<div class="icon">📏</div>
 
-    <h1>Petal Length Predictor</h1>
+<h1>Petal Length Predictor</h1>
 
-    <p class="subtitle">
-        Predict flower petal length using ML
-    </p>
+<p class="subtitle">
+Predict Flower Petal Length using Machine Learning
+</p>
 
-    <form action="/predict_petal" method="POST">
+<form action="/predict_petal" method="POST">
 
-        <input
-            type="number"
-            step="0.01"
-            name="sepal_length"
-            placeholder="Sepal Length"
-            required>
+<input type="number"
+step="0.01"
+name="sepal_length"
+placeholder="Sepal Length"
+required>
 
-        <input
-            type="number"
-            step="0.01"
-            name="sepal_width"
-            placeholder="Sepal Width"
-            required>
+<input type="number"
+step="0.01"
+name="sepal_width"
+placeholder="Sepal Width"
+required>
 
-        <input
-            type="number"
-            step="0.01"
-            name="petal_width"
-            placeholder="Petal Width"
-            required>
+<input type="number"
+step="0.01"
+name="petal_width"
+placeholder="Petal Width"
+required>
 
-        <button class="predict-btn" type="submit">
-            Predict
-        </button>
+<button class="predict-btn" type="submit">
+📏 Predict Petal Length
+</button>
 
-    </form>
+</form>
 
-    {% if prediction_text %}
-    <div class="result">
-        {{ prediction_text }}
-    </div>
-    {% endif %}
+{% if prediction_text %}
+<div class="result">
+{{ prediction_text }}
+</div>
+{% endif %}
 
-    <a href="/">
-        <button class="home-btn">
-            ⬅ Back Home
-        </button>
-    </a>
+<a href="/">
+<button class="home-btn">
+🏠 Back Home
+</button>
+</a>
+
+<footer>
+
+<div class="footer-title">
+🌸 Flower ML Dashboard
+</div>
+
+<div class="footer-tech">
+Flask • Scikit-Learn • NumPy • Vercel
+</div>
+
+<div class="footer-author">
+Developed by Ansh
+</div>
+
+<div class="footer-copy">
+© 2026 All Rights Reserved
+</div>
+
+</footer>
 
 </div>
 

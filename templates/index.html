@@ -1,146 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flower ML Project</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flower ML Dashboard</title>
 
-    <style>
+<style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:'Segoe UI',sans-serif;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
+}
 
-        body{
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background:linear-gradient(135deg,#667eea,#764ba2);
-        }
+body{
+    min-height:100vh;
+    background:linear-gradient(-45deg,#0f172a,#1e293b,#7c3aed,#2563eb);
+    background-size:400% 400%;
+    animation:gradient 10s ease infinite;
+}
 
-        .container{
-            text-align:center;
-            width:90%;
-            max-width:1000px;
-        }
+@keyframes gradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
-        h1{
-            color:white;
-            font-size:3rem;
-            margin-bottom:15px;
-        }
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:auto;
+    padding-top:80px;
+    text-align:center;
+}
 
-        .subtitle{
-            color:white;
-            margin-bottom:40px;
-            font-size:1.1rem;
-        }
+h1{
+    color:white;
+    font-size:55px;
+}
 
-        .cards{
-            display:flex;
-            gap:30px;
-            justify-content:center;
-            flex-wrap:wrap;
-        }
+.subtitle{
+    color:#dbeafe;
+    margin-top:10px;
+    margin-bottom:50px;
+    font-size:20px;
+}
 
-        .card{
-            background:white;
-            width:320px;
-            padding:30px;
-            border-radius:20px;
-            box-shadow:0 10px 25px rgba(0,0,0,0.2);
-            transition:0.3s;
-        }
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
 
-        .card:hover{
-            transform:translateY(-10px);
-        }
+.card{
+    width:350px;
+    padding:35px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.2);
+    color:white;
+    transition:0.4s;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
 
-        .icon{
-            font-size:60px;
-            margin-bottom:15px;
-        }
+.card:hover{
+    transform:translateY(-10px);
+}
 
-        .card h2{
-            color:#333;
-            margin-bottom:10px;
-        }
+.icon{
+    font-size:70px;
+    margin-bottom:15px;
+}
 
-        .card p{
-            color:#666;
-            margin-bottom:20px;
-            line-height:1.5;
-        }
+.card h2{
+    margin-bottom:15px;
+}
 
-        .btn{
-            display:inline-block;
-            text-decoration:none;
-            background:#667eea;
-            color:white;
-            padding:12px 25px;
-            border-radius:10px;
-            font-weight:bold;
-            transition:0.3s;
-        }
+.card p{
+    line-height:1.6;
+    color:#e2e8f0;
+}
 
-        .btn:hover{
-            background:#5563d6;
-        }
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 24px;
+    border-radius:12px;
+    text-decoration:none;
+    color:white;
+    background:#22c55e;
+    font-weight:bold;
+}
 
-    </style>
+.btn:hover{
+    background:#16a34a;
+}
 
+.flower{
+    position:fixed;
+    font-size:50px;
+    opacity:0.15;
+}
+
+.f1{top:10%;left:10%;}
+.f2{top:20%;right:10%;}
+.f3{bottom:15%;left:20%;}
+
+footer{
+    margin-top:70px;
+    padding:30px;
+    color:white;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+}
+
+footer p{
+    margin-top:10px;
+}
+
+</style>
 </head>
+
 <body>
+
+<div class="flower f1">🌸</div>
+<div class="flower f2">🌺</div>
+<div class="flower f3">🌼</div>
 
 <div class="container">
 
-    <h1>🌸 Flower ML Project</h1>
+<h1>🌸 Flower ML Dashboard</h1>
 
-    <p class="subtitle">
-        Machine Learning powered flower prediction system
-    </p>
+<p class="subtitle">
+Predict Iris Species and Petal Length using Machine Learning
+</p>
 
-    <div class="cards">
+<div class="cards">
 
-        <div class="card">
+<div class="card">
+<div class="icon">📏</div>
+<h2>Petal Length Predictor</h2>
 
-            <div class="icon">🌸</div>
+<p>
+Predict petal length from flower measurements.
+</p>
 
-            <h2>Petal Length Predictor</h2>
+<a href="/petal" class="btn">
+Open Predictor
+</a>
+</div>
 
-            <p>
-                Predict the petal length of a flower using
-                Sepal Length, Sepal Width and Petal Width.
-            </p>
+<div class="card">
+<div class="icon">🌿</div>
 
-            <a href="/petal" class="btn">
-                Open Predictor
-            </a>
+<h2>Species Predictor</h2>
 
-        </div>
+<p>
+Predict whether a flower is Setosa,
+Versicolor or Virginica.
+</p>
 
-        <div class="card">
+<a href="/species" class="btn">
+Predict Species
+</a>
 
-            <div class="icon">🌿</div>
+</div>
 
-            <h2>Species Predictor</h2>
+</div>
 
-            <p>
-                Predict whether the flower is Setosa,
-                Versicolor or Virginica.
-            </p>
+<footer>
 
-            <a href="/species" class="btn">
-                Predict Species
-            </a>
+<h2>🌸 Flower ML Project</h2>
 
-        </div>
+<p>
+Built using ML, NumPy and Vercel
+</p>
 
-    </div>
+<p>
+Developed by Kriti
+</p>
+
+<p>
+© 2026 All Rights Reserved
+</p>
+
+</footer>
 
 </div>
 
