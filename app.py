@@ -41,9 +41,10 @@ def predict_petal():
     prediction = petal_model.predict(scaled)[0]
 
     return render_template(
-        "petal.html",
-        prediction_text=f"Predicted Petal Length: {prediction:.2f}"
-    )
+    "petal_length.html",
+    prediction_text=f"Predicted Petal Length: {prediction:.2f}"
+)
+    
 
 
 @app.route("/predict_species", methods=["POST"])
