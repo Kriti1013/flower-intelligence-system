@@ -19,7 +19,7 @@ def home():
 
 @app.route("/petal")
 def petal():
-    return render_template("petal.html")
+    return render_template("petal_length.html")
 
 
 @app.route("/species")
