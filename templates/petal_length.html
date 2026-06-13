@@ -1,69 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Petal Length Prediction</title>
+    <title>Petal Length Predictor</title>
 </head>
 <body>
 
-<h1>📏 Petal Length Prediction</h1>
+    <h1>Flower ML Project</h1>
 
-<input type="number" id="sepal_length" placeholder="Sepal Length">
+    <form action="/predict" method="post">
 
-<input type="number" id="sepal_width" placeholder="Sepal Width">
+        <label>Sepal Length:</label><br>
+        <input type="number" step="0.01" name="sepal_length" required><br><br>
 
-<input type="number" id="petal_width" placeholder="Petal Width">
+        <label>Sepal Width:</label><br>
+        <input type="number" step="0.01" name="sepal_width" required><br><br>
 
-<br><br>
+        <label>Petal Width:</label><br>
+        <input type="number" step="0.01" name="petal_width" required><br><br>
 
-<button onclick="predictLength()">
-Predict Petal Length
-</button>
+        <button type="submit">Predict Petal Length</button>
 
-<h2 id="result"></h2>
+    </form>
 
-<script>
+    <h2>{{ prediction_text }}</h2>
 
-async function predictLength(){
-
-try{
-
-const data = {
-sepal_length: parseFloat(document.getElementById("sepal_length").value),
-sepal_width: parseFloat(document.getElementById("sepal_width").value),
-petal_width: parseFloat(document.getElementById("petal_width").value)
-};
-
-const response = await fetch("/predict_petal_length",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(data)
-});
-
-const result = await response.json();
-
-console.log(result);
-
-if(result.error){
-document.getElementById("result").innerHTML =
-"❌ Error: " + result.error;
-return;
-}
-
-document.getElementById("result").innerHTML =
-"📏 Predicted Petal Length: " +
-result.predicted_petal_length;
-
-}catch(error){
-
-document.getElementById("result").innerHTML =
-"❌ " + error;
-
-}
-
-}
-
-</script>
 </body>
 </html>
