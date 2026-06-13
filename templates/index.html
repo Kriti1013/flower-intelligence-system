@@ -1,23 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flower ML Project</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+        }
+
+        .container{
+            text-align:center;
+            width:90%;
+            max-width:1000px;
+        }
+
+        h1{
+            color:white;
+            font-size:3rem;
+            margin-bottom:15px;
+        }
+
+        .subtitle{
+            color:white;
+            margin-bottom:40px;
+            font-size:1.1rem;
+        }
+
+        .cards{
+            display:flex;
+            gap:30px;
+            justify-content:center;
+            flex-wrap:wrap;
+        }
+
+        .card{
+            background:white;
+            width:320px;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.2);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-10px);
+        }
+
+        .icon{
+            font-size:60px;
+            margin-bottom:15px;
+        }
+
+        .card h2{
+            color:#333;
+            margin-bottom:10px;
+        }
+
+        .card p{
+            color:#666;
+            margin-bottom:20px;
+            line-height:1.5;
+        }
+
+        .btn{
+            display:inline-block;
+            text-decoration:none;
+            background:#667eea;
+            color:white;
+            padding:12px 25px;
+            border-radius:10px;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#5563d6;
+        }
+
+    </style>
+
 </head>
 <body>
 
-<h1>🌸 Flower ML Project</h1>
+<div class="container">
 
-<br>
+    <h1>🌸 Flower ML Project</h1>
 
-<a href="/petal">
-    <button>Predict Petal Length</button>
-</a>
+    <p class="subtitle">
+        Machine Learning powered flower prediction system
+    </p>
 
-<br><br>
+    <div class="cards">
 
-<a href="/species">
-    <button>Predict Species</button>
-</a>
+        <div class="card">
+
+            <div class="icon">🌸</div>
+
+            <h2>Petal Length Predictor</h2>
+
+            <p>
+                Predict the petal length of a flower using
+                Sepal Length, Sepal Width and Petal Width.
+            </p>
+
+            <a href="/petal" class="btn">
+                Open Predictor
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">🌿</div>
+
+            <h2>Species Predictor</h2>
+
+            <p>
+                Predict whether the flower is Setosa,
+                Versicolor or Virginica.
+            </p>
+
+            <a href="/species" class="btn">
+                Predict Species
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>
