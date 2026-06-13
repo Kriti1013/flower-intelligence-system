@@ -1,121 +1,36 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 import joblib
 import numpy as np
 
 app = Flask(__name__)
 
-# ==========================
-# Load Models
-# ==========================
+model = joblib.load("models/petal_length_model.pkl")
+scaler = joblib.load("models/petal_length_scaler.pkl")
 
-species_model = joblib.load("models/species_model.pkl")
-petal_length_model = joblib.load("models/petal_length_model.pkl")
-
-species_scaler = joblib.load("models/species_scaler.pkl")
-petal_length_scaler = joblib.load("models/petal_length_scaler.pkl")
-
-le_species = joblib.load("models/le_species.pkl")
-
-# ==========================
-# Pages
-# ==========================
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-@app.route("/species")
-def species():
-    return render_template("species.html")
+@app.route("/predict", methods=["POST"])
+def predict():
 
+    sepal_length = float(request.form["sepal_length"])
+    sepal_width = float(request.form["sepal_width"])
+    petal_width = float(request.form["petal_width"])
 
-@app.route("/petal_length")
-def petal_length():
-    return render_template("petal_length.html")
+    features = np.array([[sepal_length, sepal_width, petal_width]])
 
+    scaled = scaler.transform(features)
 
-# ==========================
-# Species Prediction
-# ==========================
+    prediction = model.predict(scaled)
 
-@app.route("/predict_species", methods=["POST"])
-def predict_species():
+    return render_template(
+        "index.html",
+        prediction_text=f"Predicted Petal Length: {prediction[0]:.2f}"
+    )
 
-    try:
-
-        data = request.get_json()
-
-        sepal_length = float(data["sepal_length"])
-        sepal_width = float(data["sepal_width"])
-        petal_length = float(data["petal_length"])
-        petal_width = float(data["petal_width"])
-
-        features = np.array([
-            [
-                sepal_length,
-                sepal_width,
-                petal_length,
-                petal_width
-            ]
-        ])
-
-        features = species_scaler.transform(features)
-
-        prediction = species_model.predict(features)
-
-        species_name = le_species.inverse_transform(prediction)[0]
-
-        return jsonify({
-            "predicted_species": species_name
-        })
-
-    except Exception as e:
-        return jsonify({
-            "error": str(e)
-        })
-
-
-# ==========================
-# Petal Length Prediction
-# ==========================
-
-@app.route("/predict_petal_length", methods=["POST"])
-def predict_petal_length():
-
-    try:
-
-        data = request.get_json()
-
-        sepal_length = float(data["sepal_length"])
-        sepal_width = float(data["sepal_width"])
-        petal_width = float(data["petal_width"])
-
-        features = np.array([
-            [
-                sepal_length,
-                sepal_width,
-                petal_width
-            ]
-        ])
-
-        features = petal_length_scaler.transform(features)
-
-        prediction = petal_length_model.predict(features)
-
-        return jsonify({
-            "predicted_petal_length": round(float(prediction[0]), 2)
-        })
-
-    except Exception as e:
-        return jsonify({
-            "error": str(e)
-        })
-
-
-# ==========================
-# Run App
-# ==========================
 
 if __name__ == "__main__":
     app.run(debug=True)
