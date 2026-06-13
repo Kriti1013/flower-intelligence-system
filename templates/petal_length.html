@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Petal Length Prediction</title>
+</head>
+<body>
+
+<h1>📏 Petal Length Prediction</h1>
+
+<input type="number" id="sepal_length" placeholder="Sepal Length">
+
+<input type="number" id="sepal_width" placeholder="Sepal Width">
+
+<input type="number" id="petal_width" placeholder="Petal Width">
+
+<br><br>
+
+<button onclick="predictLength()">
+Predict Petal Length
+</button>
+
+<h2 id="result"></h2>
+
+<script>
+
+async function predictLength(){
+
+const data = {
+sepal_length: parseFloat(document.getElementById("sepal_length").value),
+sepal_width: parseFloat(document.getElementById("sepal_width").value),
+petal_width: parseFloat(document.getElementById("petal_width").value)
+};
+
+const response = await fetch("/predict_petal_length",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+});
+
+const result = await response.json();
+
+document.getElementById("result").innerHTML =
+"📏 Predicted Petal Length: " +
+result.predicted_petal_length;
+}
+
+</script>
+
+</body>
+</html>

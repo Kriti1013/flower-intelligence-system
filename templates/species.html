@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Species Prediction</title>
+</head>
+<body>
+
+<h1>🌸 Flower Species Prediction</h1>
+
+<input type="number" id="sepal_length" placeholder="Sepal Length">
+
+<input type="number" id="sepal_width" placeholder="Sepal Width">
+
+<input type="number" id="petal_length" placeholder="Petal Length">
+
+<input type="number" id="petal_width" placeholder="Petal Width">
+
+<br><br>
+
+<button onclick="predictSpecies()">
+Predict Species
+</button>
+
+<h2 id="result"></h2>
+
+<script>
+
+async function predictSpecies(){
+
+const data = {
+sepal_length: parseFloat(document.getElementById("sepal_length").value),
+sepal_width: parseFloat(document.getElementById("sepal_width").value),
+petal_length: parseFloat(document.getElementById("petal_length").value),
+petal_width: parseFloat(document.getElementById("petal_width").value)
+};
+
+const response = await fetch("/predict_species",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+});
+
+const result = await response.json();
+
+document.getElementById("result").innerHTML =
+"🌸 Species: " + result.predicted_species;
+}
+
+</script>
+
+</body>
+</html>
